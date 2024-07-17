@@ -6,15 +6,16 @@
             <p class="mt-2 mb-4">
               {{ description}}
             </p>
-            <a
-              href="link"
+            <router-link :to="link"
               class="inline-block text-white rounded-lg px-4 py-2" :class="[hoverColor, buttonColor]">
               {{ buttonDescription }}
-            </a>
+            </router-link>
           </div>
 </template>
 
 <script setup>
+import { RouterLink} from 'vue-router';
+
 const props = defineProps({
   title: {
     type: String,

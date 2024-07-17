@@ -5,7 +5,7 @@
             <Card title="For Developers" 
             description="Browse our Dan jobs and start your career today"
             buttonDescription="Browse Jobs" 
-            link="jobs.html" 
+            link="/jobs" 
             bgColor="bg-gray-100" 
             buttonColor="bg-black"
             hoverColor="hover:bg-gray-700"/>
@@ -14,7 +14,7 @@
             <Card title="For Employers"
             description="Post a job and find the best candidates for your company"
             buttonDescription="Post a Job"
-            link="add-job.html"
+            link="/jobs/add"
             bgColor="bg-green-100"
             buttonColor="bg-green-500"
             hoverColor="hover:bg-green-600"/>
