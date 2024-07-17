@@ -1,11 +1,11 @@
-<script>
-</script>
-
 <template>
- <h1>
-  Vue Jobs. Welcome Klugah
+ <h1 class="text-2xl">
+  Dan Jobs
  </h1>
 </template>
+
+<script>
+</script>
 
 <style scoped>
 
