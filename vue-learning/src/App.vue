@@ -1,10 +1,14 @@
 <template>
- <h1 class="text-2xl">
-  Dan Jobs
- </h1>
+    <Navbar />
+    <Hero />
+    <HomeCards />
 </template>
 
-<script>
+<script setup>
+import Navbar from '@/components/Navbar.vue';
+import Hero from '@/components/Hero.vue';
+import HomeCards from '@/components/HomeCards.vue';
+
 </script>
 
 <style scoped>
