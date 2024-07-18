@@ -1,4 +1,5 @@
 <template>
+  <BackButton />
   <singleJobLoaderVue v-if="loading" />
    <section v-else class="bg-green-50">
       <div class="container m-auto py-10 px-6">
@@ -13,7 +14,7 @@
                 class="text-gray-500 mb-4 flex align-middle justify-center md:justify-start"
               >
                 <i
-                  class="fa-solid fa-location-dot text-lg text-orange-700 mr-2"
+                  class="pi pi-map-marker text-orange-700 text-xl mr-2"
                 ></i>
                 <p class="text-orange-700">{{ job.location }}</p>
               </div>
@@ -66,7 +67,7 @@
                 :to="`/jobs/edit/${job.id}`"
                 class="bg-green-500 hover:bg-green-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
                 >Edit Job</RouterLink>
-              <button
+              <button @click="deleteJob"
                 class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
               >
                 Delete Job
@@ -82,13 +83,33 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import singleJobLoaderVue from '@/loaders/singleJobLoader.vue';
-import { useRoute, RouterLink } from 'vue-router'; 
+import { useRoute, RouterLink, useRouter } from 'vue-router'; 
+import BackButton from '@/components/BackButton.vue';
+import { useToast } from 'vue-toastification';
+
 
 const route = useRoute(); 
 const job = ref({});
 const loading = ref(true);
+const toast = useToast();
+const router = useRouter();
 
 const jobId = route.params.id; 
+
+const deleteJob = async () => {
+  if (!confirm('Are you sure you want to delete this job?')) {
+    return;
+  }
+
+  try {
+    await axios.delete(`/api/jobs/${jobId}`);
+    toast.success('Job deleted successfully');
+    router.push('/jobs');
+  } catch (error) {
+    console.error('Error deleting job', error);
+    toast.error('Could not delete job');
+  }
+};
 
 onMounted(async () => {
   if (!jobId) {
@@ -98,7 +119,7 @@ onMounted(async () => {
   }
 
   try {
-    const response = await axios.get(`http://localhost:8000/jobs/${jobId}`);
+    const response = await axios.get(`/api/jobs/${jobId}`);
     job.value = response.data;
   } catch (error) {
     console.error('Error fetching job', error);
